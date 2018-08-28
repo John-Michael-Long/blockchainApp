@@ -4,9 +4,7 @@ import style from './styles/main.css';
 import App from './components/App.jsx';
 //import other components
 
-
 ReactDOM.render(<App />, document.getElementById('app'));
-
 
 //WHEN USING REDUX UNCOMMENT BELOW:
 
