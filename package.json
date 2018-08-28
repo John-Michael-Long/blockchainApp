@@ -1,0 +1,50 @@
+{
+  "name": "new-react-app-setup",
+  "version": "1.0.0",
+  "description": "Basic setup of react app, webpack, and dependencies",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start-dev": "nodemon server/index.js",
+    "dev": "webpack -d --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/John-Michael-Long/new-react-app-setup.git"
+  },
+  "author": "JM Long",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/John-Michael-Long/new-react-app-setup/issues"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-eslint": "^8.2.5",
+    "babel-loader": "^7.1.5",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "css-loader": "^1.0.0",
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb": "^17.0.0",
+    "eslint-loader": "^2.0.0",
+    "eslint-plugin-import": "^2.12.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.9.1",
+    "html-loader": "^0.5.5",
+    "html-webpack-plugin": "^3.2.0",
+    "install": "^0.12.1",
+    "mini-css-extract-plugin": "^0.4.1",
+    "nodemon": "^1.17.5",
+    "npm": "^6.1.0",
+    "webpack": "^4.15.1",
+    "webpack-cli": "^3.0.8"
+  },
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.4",
+    "react": "^15.6.2",
+    "react-dom": "^15.6.2"
+  },
+  "homepage": "https://github.com/John-Michael-Long/new-react-app-setup#readme"
+}
