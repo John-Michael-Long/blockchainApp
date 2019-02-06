@@ -45,6 +45,10 @@ blockDB.post('/mine_pending', (req, res) => {
   res.send(jCoin)
 })
 
+// TODO
+// get my balance
+// get balance sheet
+
 blockDB.listen(PORT, () => {
   console.log(`listening on port ${PORT}`);
 });
