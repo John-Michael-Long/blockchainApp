@@ -1,5 +1,5 @@
 {
-  "name": "new-react-app-setup",
+  "name": "blockchainApp",
   "version": "1.0.0",
   "description": "Basic setup of react app, webpack, and dependencies",
   "main": "index.js",
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/John-Michael-Long/new-react-app-setup.git"
+    "url": "git+https://github.com/John-Michael-Long/blockchainApp.git"
   },
   "author": "JM Long",
   "license": "ISC",

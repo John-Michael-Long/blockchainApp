@@ -49,6 +49,18 @@ blockDB.post('/mine_pending', (req, res) => {
 // get my balance
 // get balance sheet
 
+blockDB.get('/myBalance', (req, res) => {
+  console.log('in myBalance, req body: ', req.body)
+
+  res.send(jCoin)
+})
+
+blockDB.get('/balanceSheet', (req, res) => {
+  console.log('in balanceSheet, req body: ', req.body)
+
+  res.send(jCoin)
+})
+
 blockDB.listen(PORT, () => {
   console.log(`listening on port ${PORT}`);
 });
