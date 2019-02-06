@@ -1,0 +1,17 @@
+
+.app-container, 
+.user-info-container, 
+.user-info-display,
+.welcome-div,
+.balance-div,
+.option-buttons, 
+.send-cons-container, 
+.mine-block-container,
+.send-coins-btn,
+.mine-block-btn {
+  border-style: solid;
+  border-color: red;
+  border-width: 1px;
+  margin: 10px;
+}
+
