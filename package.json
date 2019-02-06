@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start-dev": "nodemon server/index.js",
+    "start-db": "nodemon database/index.js",
     "dev": "webpack -d --watch"
   },
   "repository": {
@@ -41,7 +42,10 @@
     "webpack-cli": "^3.0.8"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "body-parser": "^1.17.2",
+    "crypto-js": "^3.1.9-1",
+    "elliptic": "^6.4.1",
     "express": "^4.15.4",
     "react": "^15.6.2",
     "react-dom": "^15.6.2"
