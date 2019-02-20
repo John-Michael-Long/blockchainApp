@@ -6,18 +6,22 @@ const ec = new EC('secp256k1');
 
 class Blockchain {
   constructor() {
-    this.chain = [this.createGenesisBlock()];
-    this.difficulty = 4;
+    this.chain = [this.createGenesisBlock()];  // this.createGenesisBlock()
+    this.difficulty = 3;
     this.pendingTransactions = [];
     this.miningReward = 15;
   }
 
   createGenesisBlock() {
-    return new Block(Date.now(), "Genesis block", "0");
+    return new Block(Date.now(), ["Genesis block"], "0");
   }
 
   getLatestBlock() {
     return this.chain[this.chain.length - 1];
+  }
+
+  getPendingTransactions() {
+    return this.pendingTransactions;
   }
 
   minePendingTransactions(miningRewardAddress) {
@@ -33,9 +37,6 @@ class Blockchain {
   }
   
   addTransaction(transaction) {
-    console.log('inside addTransaction...')
-    console.log('trans: ', transaction)
-
     if(!transaction.fromAddress || !transaction.toAddress) {
       throw new Error('Transaction must include to and from address');
     }
@@ -71,21 +72,27 @@ class Blockchain {
         callback(trans);
       }
     }
+
+    // for(let i = 1; i < this.chain.length; i++) {
+    //   for(let j = 0; j < this.chain[i].block.transactions)
+    // }
   }
 
   getAllBalances() {
     let balanceSheet = {};
     this.iterateBlockchain( trans => {
-      if(balanceSheet[trans.fromAddress] === undefined){
-        balanceSheet[trans.fromAddress] = -trans.amount;
-      } else {
-        balanceSheet[trans.fromAddress] -= trans.amount;
-      }
+      if(trans !== 'Genesis block') {
+        if(balanceSheet[trans.fromAddress] === undefined){
+          balanceSheet[trans.fromAddress] = -trans.amount;
+        } else {
+          balanceSheet[trans.fromAddress] -= trans.amount;
+        }
 
-      if(balanceSheet[trans.toAddress] === undefined){
-        balanceSheet[trans.toAddress] = trans.amount;
-      } else {
-        balanceSheet[trans.toAddress] += trans.amount;
+        if(balanceSheet[trans.toAddress] === undefined){
+          balanceSheet[trans.toAddress] = trans.amount;
+        } else {
+          balanceSheet[trans.toAddress] += trans.amount;
+        }
       }
     })
     return balanceSheet
@@ -95,12 +102,14 @@ class Blockchain {
     let balance = 0;
 
     this.iterateBlockchain( trans => {
-      if(trans.fromAddress === address) {
-        balance -= trans.amount;
+      if(trans !== 'Genesis block') {
+        if(trans.fromAddress === address) {
+          balance -= trans.amount;
+        }
+        if(trans.toAddress === address) {
+          balance += trans.amount;
+        }      
       }
-      if(trans.toAddress === address) {
-        balance += trans.amount;
-      }      
     })
     return balance;
   }
