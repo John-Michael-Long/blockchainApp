@@ -1,12 +1,36 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const db = require('../database');
 const { Blockchain } = require('./blockchain')
 const blockDB = express();
 const PORT = process.env.PORT || 3001;
 
 blockDB.use(bodyParser.json());
 blockDB.use(bodyParser.urlencoded({extended: true}));
+
+/* 
+TODO:
+- distributed network model? micro-services?
+- add event log??? 
+- put "mineBlock" on front-end, 
+  - have minePendingTransactions or isChainValid...
+- add validation / verification for all API methods
+- use testing framework: mocha/chai, jest/enzyme
+
+WEBSOCKST - chat - type of server/client interaction
+WEBHOOKS - server a talks to server b
+
+SSH connections - secure socket shell, can SSH into another machine via terminal,
+ - limitations - must be ongoing conneciton (network exicution terminations)
+HTTP client vs EMail Client
+
+
+To start form boilerplate, 
+Clone 
+create new repo
+add new repo as a new origin
+then push to a new origin
+
+*/
 
 let jCoin = new Blockchain();
 
@@ -30,36 +54,63 @@ blockDB.use((req, res, next) => {
 });
 
 blockDB.post('/transaction', (req, res) => {
-  console.log('In /transaction, request body: ', req.body)
+  console.log('In /transaction')
 
   jCoin.addTransaction(req.body);
 
-  res.send(jCoin)
+  res.send('transaction added')
 })
 
 blockDB.post('/mine_pending', (req, res) => {
-  console.log('In /mine_pending, request body: ', req.body)
+  console.log('In /mine_pending')
 
-  jCoin.minePendingTransactions(req.body.walletAddres)
+  jCoin.minePendingTransactions(req.body.walletAddress)
 
-  res.send(jCoin)
+  res.send('block mined')
 })
 
-// TODO
-// get my balance
-// get balance sheet
+blockDB.get('/get_my_balance', (req, res) => {
+  console.log('in /get_my_balance')
 
-blockDB.get('/myBalance', (req, res) => {
-  console.log('in myBalance, req body: ', req.body)
+  const balance = jCoin.getBalanceOfAddress(req.body.walletAddress)
 
-  res.send(jCoin)
+  res.send(balance.toString())
 })
 
-blockDB.get('/balanceSheet', (req, res) => {
-  console.log('in balanceSheet, req body: ', req.body)
+blockDB.get('/get_balance_sheet', (req, res) => {
+  console.log('in /get_balance_sheet')
 
-  res.send(jCoin)
+  const balanceSheet = jCoin.getAllBalances();
+
+  res.send(balanceSheet)
 })
+
+blockDB.get('/get_latest_block_hash', (req, res) => {
+  console.log('in get_latest_block_hash')
+
+  res.send([jCoin.getLatestBlock().hash, jCoin.difficulty, jCoin.chain.length])
+})
+
+blockDB.get('/get_pending_transactions', (req, res) => {
+  res.send(jCoin.getPendingTransactions())
+})
+
+blockDB.post('/mine_pending_front_end', (req, res) => {
+  console.log('In /mine_pending_front_end')
+
+  // need to abstract this away in Blockchain class
+
+  console.log('req: ', req.body)
+  jCoin.chain.push(req.body)
+  // jCoin.pendingTransactions = [ 
+  //   new Transaction(null, miningRewardAddress, jCoin.miningReward) 
+  // ]; 
+  
+
+  res.send('block added')
+})
+
+
 
 blockDB.listen(PORT, () => {
   console.log(`listening on port ${PORT}`);
